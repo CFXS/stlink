@@ -321,7 +321,8 @@ int stlink_target_connect(stlink_t *sl, enum connect_type connect);
 #include <commands.h>
 #include <chipid.h>
 #include <flash_loader.h>
-#include <version.h>
+//#include <version.h>
+#define STLINK_VERSION "1.7.0"
 #include <logging.h>
 
 #ifdef __cplusplus

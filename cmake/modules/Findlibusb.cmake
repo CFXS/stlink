@@ -89,17 +89,19 @@ elseif (WIN32 OR (EXISTS "/etc/debian_version" AND MINGW)) # Windows or MinGW-to
             message(STATUS "downloading libusb ${LIBUSB_WIN_VERSION}")
             file(DOWNLOAD
                 https://sourceforge.net/projects/libusb/files/libusb-1.0/libusb-${LIBUSB_WIN_VERSION}/libusb-${LIBUSB_WIN_VERSION}.7z/download
-                ${LIBUSB_WIN_ARCHIVE_PATH} EXPECTED_MD5 cf3d38d2ff053ef343d10c0b8b0950c2
+                ${LIBUSB_WIN_ARCHIVE_PATH}
                 )
         endif ()
 
         file(MAKE_DIRECTORY ${LIBUSB_WIN_OUTPUT_FOLDER})
 
+        if (NOT EXISTS ${LIBUSB_WIN_ARCHIVE_PATH})
         # Extract libusb package with cmake
         execute_process(
             COMMAND ${CMAKE_COMMAND} -E tar xv ${LIBUSB_WIN_ARCHIVE_PATH}
             WORKING_DIRECTORY ${LIBUSB_WIN_OUTPUT_FOLDER}
             )
+        endif()
 
         # Find path to libusb library
         FIND_PATH(
@@ -123,7 +125,7 @@ elseif (WIN32 OR (EXISTS "/etc/debian_version" AND MINGW)) # Windows or MinGW-to
             set(LIBUSB_NAME libusb-1.0.lib)
             find_library(
                 LIBUSB_LIBRARY NAMES ${LIBUSB_NAME}
-                HINTS ${LIBUSB_WIN_OUTPUT_FOLDER}/MS${ARCH}/dll
+                HINTS ${LIBUSB_WIN_OUTPUT_FOLDER}/VS2019/MS${ARCH}/Release/dll
                 NO_DEFAULT_PATH
                 NO_CMAKE_FIND_ROOT_PATH
                 )

@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.10.2)
 cmake_policy(SET CMP0042 NEW)
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -302,7 +302,7 @@ install(TARGETS st-util DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(TARGETS st-trace DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 # Install MCU configuration files
-file(GLOB CHIP_FILES ${CMAKE_SOURCE_DIR}/config/chips/*.chip)
+file(GLOB CHIP_FILES ${CMAKE_CURRENT_SOURCE_DIR}/config/chips/*.chip)
 install(FILES ${CHIP_FILES} DESTINATION ${CMAKE_CHIPS_DIR})
 
 
@@ -313,11 +313,11 @@ install(FILES ${CHIP_FILES} DESTINATION ${CMAKE_CHIPS_DIR})
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     ## Install modprobe.d conf files to /etc/modprobe.d/ (explicitly hardcoded)
     set(STLINK_MODPROBED_DIR "/etc/modprobe.d" CACHE PATH "modprobe.d directory")
-    install(FILES ${CMAKE_SOURCE_DIR}/config/modprobe.d/stlink_v1.conf DESTINATION ${STLINK_MODPROBED_DIR})
+    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/config/modprobe.d/stlink_v1.conf DESTINATION ${STLINK_MODPROBED_DIR})
 
     ## Install udev rules files to /lib/udev/rules.d/ (explicitly hardcoded)
     set(STLINK_UDEV_RULES_DIR "/lib/udev/rules.d" CACHE PATH "udev rules directory")
-    file(GLOB RULES_FILES ${CMAKE_SOURCE_DIR}/config/udev/rules.d/*.rules)
+    file(GLOB RULES_FILES ${CMAKE_CURRENT_SOURCE_DIR}/config/udev/rules.d/*.rules)
     install(FILES ${RULES_FILES} DESTINATION ${STLINK_UDEV_RULES_DIR})
 endif ()
 
@@ -327,7 +327,7 @@ endif ()
 ###
 
 add_subdirectory(src/stlink-gui)  # contains subordinate CMakeLists to build GUI
-add_subdirectory(tests)           # contains subordinate CMakeLists to build test executables
+#add_subdirectory(tests)           # contains subordinate CMakeLists to build test executables
 add_subdirectory(cmake/packaging) # contains subordinate CMakeLists to build packages
 
 option(STLINK_GENERATE_MANPAGES "Generate manpages with pandoc" OFF)
