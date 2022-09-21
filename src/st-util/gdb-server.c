@@ -25,7 +25,7 @@
 #include <arpa/inet.h>
 #endif
 
-#include <stlink.h>
+#include <stlink/stlink.h>
 #include <helper.h>
 #include <logging.h>
 #include "gdb-remote.h"

@@ -4,7 +4,7 @@
 #include <errno.h>
 #include <gtk/gtk.h>
 
-#include <stlink.h>
+#include <stlink/stlink.h>
 #include "gui.h"
 
 #define MEM_READ_SIZE 1024

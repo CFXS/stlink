@@ -11,7 +11,7 @@
 
 #include <logging.h>
 #include <reg.h>
-#include <stlink.h>
+#include <stlink/stlink.h>
 
 #define DEFAULT_LOGGING_LEVEL 50
 #define DEBUG_LOGGING_LEVEL 100

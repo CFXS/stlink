@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stlink.h>
+#include <stlink/stlink.h>
 
 static stlink_t *stlink_open_first(void) {
     stlink_t* sl = NULL;

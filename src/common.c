@@ -7,8 +7,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <md5.h>
-#include <stlink.h>
-#include <stm32.h>
+#include <stlink/stlink.h>
+#include <stlink/stm32.h>
 
 #include "common_flash.h"
 #include "calculate.h"

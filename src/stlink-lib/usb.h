@@ -8,7 +8,7 @@
 
 #include <stdbool.h>
 
-#include <stlink.h>
+#include <stlink/stlink.h>
 #include <libusb_settings.h>
 #include "logging.h"
 
@@ -26,29 +26,24 @@
 
 #define STLINK_V1_USB_PID(pid) ((pid) == STLINK_USB_PID_STLINK)
 
-#define STLINK_V2_USB_PID(pid) ((pid) == STLINK_USB_PID_STLINK_32L || \
-                                (pid) == STLINK_USB_PID_STLINK_32L_AUDIO || \
-                                (pid) == STLINK_USB_PID_STLINK_NUCLEO)
+#define STLINK_V2_USB_PID(pid) \
+    ((pid) == STLINK_USB_PID_STLINK_32L || (pid) == STLINK_USB_PID_STLINK_32L_AUDIO || (pid) == STLINK_USB_PID_STLINK_NUCLEO)
 
 #define STLINK_V2_1_USB_PID(pid) ((pid) == STLINK_USB_PID_STLINK_V2_1)
 
-#define STLINK_V3_USB_PID(pid) ((pid) == STLINK_USB_PID_STLINK_V3_USBLOADER || \
-                                (pid) == STLINK_USB_PID_STLINK_V3E_PID || \
-                                (pid) == STLINK_USB_PID_STLINK_V3S_PID || \
-                                (pid) == STLINK_USB_PID_STLINK_V3_2VCP_PID || \
-                                (pid) == STLINK_USB_PID_STLINK_V3_NO_MSD_PID)
+#define STLINK_V3_USB_PID(pid)                                                                                                          \
+    ((pid) == STLINK_USB_PID_STLINK_V3_USBLOADER || (pid) == STLINK_USB_PID_STLINK_V3E_PID || (pid) == STLINK_USB_PID_STLINK_V3S_PID || \
+     (pid) == STLINK_USB_PID_STLINK_V3_2VCP_PID || (pid) == STLINK_USB_PID_STLINK_V3_NO_MSD_PID)
 
-#define STLINK_SUPPORTED_USB_PID(pid) (STLINK_V1_USB_PID(pid) || \
-                                       STLINK_V2_USB_PID(pid) || \
-                                       STLINK_V2_1_USB_PID(pid) || \
-                                       STLINK_V3_USB_PID(pid))
+#define STLINK_SUPPORTED_USB_PID(pid) \
+    (STLINK_V1_USB_PID(pid) || STLINK_V2_USB_PID(pid) || STLINK_V2_1_USB_PID(pid) || STLINK_V3_USB_PID(pid))
 
-#define STLINK_SG_SIZE 31
+#define STLINK_SG_SIZE  31
 #define STLINK_CMD_SIZE 16
 
 struct stlink_libusb {
-    libusb_context* libusb_ctx;
-    libusb_device_handle* usb_handle;
+    libusb_context *libusb_ctx;
+    libusb_device_handle *usb_handle;
     unsigned int ep_req;
     unsigned int ep_rep;
     unsigned int ep_trace;
@@ -65,7 +60,7 @@ struct stlink_libusb {
  * @retval NULL   Error while opening the stlink
  * @retval !NULL  Stlink found and ready to use
  */
- 
+
 stlink_t *stlink_open_usb(enum ugly_loglevel verbose, enum connect_type connect, char serial[STLINK_SERIAL_BUFFER_SIZE], int freq);
 size_t stlink_probe_usb(stlink_t **stdevs[], enum connect_type connect, int freq);
 void stlink_probe_usb_free(stlink_t **stdevs[], size_t size);

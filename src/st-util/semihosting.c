@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <errno.h>
 
-#include <stlink.h>
+#include <stlink/stlink.h>
 #include <logging.h>
 #include "semihosting.h"
 

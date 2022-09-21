@@ -2,7 +2,7 @@
 #include <sys/stat.h>
 #include <md5.h>
 #include <unistd.h>
-#include <stlink.h>
+#include <stlink/stlink.h>
 #include <logging.h>
 
 #include "map_file.h"

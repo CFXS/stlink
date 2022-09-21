@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include <stlink.h>
+#include <stlink/stlink.h>
 #include <string.h>
 
 static void usage(void) {

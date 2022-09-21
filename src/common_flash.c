@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stlink.h>
+#include <stlink/stlink.h>
 #include <unistd.h>
 #include <string.h>
 #include "calculate.h"

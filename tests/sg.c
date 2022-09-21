@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <stlink.h>
+#include <stlink/stlink.h>
 
 #if defined(_MSC_VER)
 #define __attribute__(x)

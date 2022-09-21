@@ -1,4 +1,4 @@
-#include <stlink.h>
+#include <stlink/stlink.h>
 #include "calculate.h"
 #include "common_flash.h"
 

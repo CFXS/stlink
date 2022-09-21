@@ -16,7 +16,7 @@
 #include <win32_socket.h>
 #endif
 
-#include <stlink.h>
+#include <stlink/stlink.h>
 #include <helper.h>
 #include "usb.h"
 

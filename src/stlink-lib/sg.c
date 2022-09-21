@@ -81,7 +81,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 
-#include <stlink.h>
+#include <stlink/stlink.h>
 #include "logging.h"
 #include "sg.h"
 

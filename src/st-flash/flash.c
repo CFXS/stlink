@@ -8,8 +8,8 @@
 #include <string.h>
 #include <sys/types.h>
 
-#include <stm32.h>
-#include <stlink.h>
+#include <stlink/stm32.h>
+#include <stlink/stlink.h>
 #include "flash.h"
 
 static stlink_t *connected_stlink = NULL;

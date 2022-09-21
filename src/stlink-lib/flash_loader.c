@@ -2,8 +2,8 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <stm32.h>
-#include <stlink.h>
+#include <stlink/stm32.h>
+#include <stlink/stlink.h>
 #include <helper.h>
 #include "flash_loader.h"
 

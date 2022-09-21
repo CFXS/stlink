@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include <stlink.h>
+#include <stlink/stlink.h>
 #include "common_flash.h"
 #include "map_file.h"
 #include "common.h"

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <stlink.h>
+#include <stlink/stlink.h>
 #include <flash.h>
 
 #if defined(_MSC_VER)

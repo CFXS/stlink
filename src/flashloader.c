@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include <stlink.h>
+#include <stlink/stlink.h>
 #include "common_flash.h"
 
 #define L1_WRITE_BLOCK_SIZE 0x80
