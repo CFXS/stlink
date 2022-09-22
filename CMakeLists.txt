@@ -188,41 +188,41 @@ execute_process(COMMAND bash -c "export LD_LIBRARY_PATH=${CMAKE_INSTALL_LIBDIR}"
 # Shared library
 ###
 
-# Set library name
-set(STLINK_LIB_SHARED ${PROJECT_NAME}-shared)
-
-add_library(${STLINK_LIB_SHARED} SHARED ${STLINK_HEADERS} ${STLINK_SOURCE})
-target_include_directories(${STLINK_LIB_SHARED} PUBLIC ${LIBUSB_INCLUDE_DIR})
-
-set(STLINK_SHARED_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
-message(STATUS "STLINK_LIB_SHARED: ${STLINK_LIB_SHARED}")
-message(STATUS "PROJECT_VERSION_MAJOR: ${PROJECT_VERSION_MAJOR}")
-message(STATUS "VERSION: ${STLINK_SHARED_VERSION}")
-
-set_target_properties(${STLINK_LIB_SHARED} PROPERTIES
-        SOVERSION ${PROJECT_VERSION_MAJOR}
-        VERSION ${STLINK_SHARED_VERSION}
-        OUTPUT_NAME ${PROJECT_NAME}
-        )
-
-# Link shared library
-if (APPLE)     # ... with Apple macOS libraries
-    find_library(ObjC objc)
-    find_library(CoreFoundation CoreFoundation)
-    find_library(IOKit IOKit)
-    find_library(Security Security)
-    target_link_libraries(${STLINK_LIB_SHARED} ${LIBUSB_LIBRARY} ${SSP_LIB} ${ObjC} ${CoreFoundation} ${IOKit} ${Security})
-elseif (WIN32) # ... with Windows libraries
-    target_link_libraries(${STLINK_LIB_SHARED} ${LIBUSB_LIBRARY} ${SSP_LIB} wsock32 ws2_32)
-else ()
-    target_link_libraries(${STLINK_LIB_SHARED} ${LIBUSB_LIBRARY} ${SSP_LIB})
-endif ()
-
-install(TARGETS ${STLINK_LIB_SHARED}
-        ARCHIVE DESTINATION ${STLINK_LIBRARY_PATH}
-        LIBRARY DESTINATION ${STLINK_LIBRARY_PATH}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-        )
+### # Set library name
+### set(STLINK_LIB_SHARED ${PROJECT_NAME}-shared)
+### 
+### add_library(${STLINK_LIB_SHARED} SHARED ${STLINK_HEADERS} ${STLINK_SOURCE})
+### target_include_directories(${STLINK_LIB_SHARED} PUBLIC ${LIBUSB_INCLUDE_DIR})
+### 
+### set(STLINK_SHARED_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
+### message(STATUS "STLINK_LIB_SHARED: ${STLINK_LIB_SHARED}")
+### message(STATUS "PROJECT_VERSION_MAJOR: ${PROJECT_VERSION_MAJOR}")
+### message(STATUS "VERSION: ${STLINK_SHARED_VERSION}")
+### 
+### set_target_properties(${STLINK_LIB_SHARED} PROPERTIES
+###         SOVERSION ${PROJECT_VERSION_MAJOR}
+###         VERSION ${STLINK_SHARED_VERSION}
+###         OUTPUT_NAME ${PROJECT_NAME}
+###         )
+### 
+### # Link shared library
+### if (APPLE)     # ... with Apple macOS libraries
+###     find_library(ObjC objc)
+###     find_library(CoreFoundation CoreFoundation)
+###     find_library(IOKit IOKit)
+###     find_library(Security Security)
+###     target_link_libraries(${STLINK_LIB_SHARED} ${LIBUSB_LIBRARY} ${SSP_LIB} ${ObjC} ${CoreFoundation} ${IOKit} ${Security})
+### elseif (WIN32) # ... with Windows libraries
+###     target_link_libraries(${STLINK_LIB_SHARED} ${LIBUSB_LIBRARY} ${SSP_LIB} wsock32 ws2_32)
+### else ()
+###     target_link_libraries(${STLINK_LIB_SHARED} ${LIBUSB_LIBRARY} ${SSP_LIB})
+### endif ()
+### 
+### install(TARGETS ${STLINK_LIB_SHARED}
+###         ARCHIVE DESTINATION ${STLINK_LIBRARY_PATH}
+###         LIBRARY DESTINATION ${STLINK_LIBRARY_PATH}
+###         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+###         )
 
 ###
 # Static library
@@ -281,27 +281,27 @@ if (MSVC)
     set(ST-TRACE_SOURCES "${ST-TRACE_SOURCES};src/win32/getopt/getopt.c")
 endif ()
 
-#add_executable(st-flash ${ST-FLASH_SOURCES})
-#add_executable(st-info ${ST-INFO_SOURCES})
-#add_executable(st-util ${ST-UTIL_SOURCES})
-#add_executable(st-trace ${ST-TRACE_SOURCES})
-
-#if (WIN32 OR APPLE)
-#    target_link_libraries(st-flash ${STLINK_LIB_STATIC} ${SSP_LIB})
-#    target_link_libraries(st-info ${STLINK_LIB_STATIC} ${SSP_LIB})
-#    target_link_libraries(st-util ${STLINK_LIB_STATIC} ${SSP_LIB})
-#    target_link_libraries(st-trace ${STLINK_LIB_STATIC} ${SSP_LIB})
-#else ()
-#    target_link_libraries(st-flash ${STLINK_LIB_SHARED} ${SSP_LIB})
-#    target_link_libraries(st-info ${STLINK_LIB_SHARED} ${SSP_LIB})
-#    target_link_libraries(st-util ${STLINK_LIB_SHARED} ${SSP_LIB})
-#    target_link_libraries(st-trace ${STLINK_LIB_SHARED} ${SSP_LIB})
-#endif ()
-
-#install(TARGETS st-flash DESTINATION ${CMAKE_INSTALL_BINDIR})
-#install(TARGETS st-info DESTINATION ${CMAKE_INSTALL_BINDIR})
-#install(TARGETS st-util DESTINATION ${CMAKE_INSTALL_BINDIR})
-#install(TARGETS st-trace DESTINATION ${CMAKE_INSTALL_BINDIR})
+# add_executable(st-flash ${ST-FLASH_SOURCES})
+# add_executable(st-info ${ST-INFO_SOURCES})
+# add_executable(st-util ${ST-UTIL_SOURCES})
+# add_executable(st-trace ${ST-TRACE_SOURCES})
+# 
+# if (WIN32 OR APPLE)
+#     target_link_libraries(st-flash ${STLINK_LIB_STATIC} ${SSP_LIB})
+#     target_link_libraries(st-info ${STLINK_LIB_STATIC} ${SSP_LIB})
+#     target_link_libraries(st-util ${STLINK_LIB_STATIC} ${SSP_LIB})
+#     target_link_libraries(st-trace ${STLINK_LIB_STATIC} ${SSP_LIB})
+# else ()
+#     target_link_libraries(st-flash ${STLINK_LIB_SHARED} ${SSP_LIB})
+#     target_link_libraries(st-info ${STLINK_LIB_SHARED} ${SSP_LIB})
+#     target_link_libraries(st-util ${STLINK_LIB_SHARED} ${SSP_LIB})
+#     target_link_libraries(st-trace ${STLINK_LIB_SHARED} ${SSP_LIB})
+# endif ()
+# 
+# install(TARGETS st-flash DESTINATION ${CMAKE_INSTALL_BINDIR})
+# install(TARGETS st-info DESTINATION ${CMAKE_INSTALL_BINDIR})
+# install(TARGETS st-util DESTINATION ${CMAKE_INSTALL_BINDIR})
+# install(TARGETS st-trace DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 # Install MCU configuration files
 file(GLOB CHIP_FILES ${CMAKE_CURRENT_SOURCE_DIR}/config/chips/*.chip)

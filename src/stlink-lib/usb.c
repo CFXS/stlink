@@ -1104,7 +1104,7 @@ size_t stlink_serial(struct libusb_device_handle *handle, struct libusb_device_d
 	return strlen(serial);
 }
 
-stlink_t *stlink_open_usb(enum ugly_loglevel verbose, enum connect_type connect, char serial[STLINK_SERIAL_BUFFER_SIZE], int freq) {
+stlink_t *stlink_open_usb(enum ugly_loglevel verbose, enum connect_type connect, char serial[STLINK_SERIAL_BUFFER_SIZE], int freq, int index) {
     stlink_t* sl = NULL;
     struct stlink_libusb* slu = NULL;
     int ret = -1;
@@ -1137,6 +1137,7 @@ stlink_t *stlink_open_usb(enum ugly_loglevel verbose, enum connect_type connect,
     ssize_t cnt = libusb_get_device_list(slu->libusb_ctx, &list);
     struct libusb_device_descriptor desc;
 
+int validIndex = 0;
     while (cnt-- > 0) {
         struct libusb_device_handle *handle;
 
@@ -1153,9 +1154,12 @@ stlink_t *stlink_open_usb(enum ugly_loglevel verbose, enum connect_type connect,
         libusb_close(handle);
 
         if (serial_len != STLINK_SERIAL_LENGTH) { continue; } // could not read the serial
+        validIndex++;
+
+        if(index && validIndex != index) {continue;}
 
         // if no serial provided, or if serial match device, fixup version and protocol
-        if (((serial == NULL) || (*serial == 0)) || (memcmp(serial, &sl->serial, STLINK_SERIAL_LENGTH) == 0)) {
+        if (((serial == NULL) || (*serial == 0)) || (index || (memcmp(serial, &sl->serial, STLINK_SERIAL_LENGTH) == 0))) {
             if (STLINK_V1_USB_PID(desc.idProduct)) {
                 slu->protocoll = 1;
                 sl->version.stlink_v = 1;
@@ -1357,7 +1361,7 @@ static size_t stlink_probe_usb_devs(libusb_device **devs, stlink_t **sldevs[], e
 
         if (serial_len != STLINK_SERIAL_LENGTH) { continue; }
 
-        stlink_t *sl = stlink_open_usb(0, connect, serial, freq);
+        stlink_t *sl = stlink_open_usb(0, connect, serial, freq, 0);
 
         if (!sl) {
             ELOG("Failed to open USB device %#06x:%#06x\n", desc.idVendor, desc.idProduct);

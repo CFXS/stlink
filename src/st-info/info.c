@@ -100,7 +100,7 @@ static int print_data(int ac, char **av) {
     }
 
     // open first st-link device
-    sl = stlink_open_usb(0, connect, NULL, freq);
+    sl = stlink_open_usb(UDEBUG, connect, NULL, freq);
     if (sl == NULL) { return(-1); }
 
     if (strcmp(av[1], "--serial") == 0) {
