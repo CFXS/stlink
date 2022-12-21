@@ -73,6 +73,7 @@ elseif(WIN32 OR(EXISTS "/etc/debian_version" AND MINGW)) # Windows or MinGW-tool
         set(ARCH 32)
     endif()
 
+<<<<<<< Updated upstream
     if(WIN32 AND NOT EXISTS "/etc/debian_version") # Skip this for Debian...
         # Preparations for installing libusb library
         set(LIBUSB_WIN_VERSION 1.0.25) # set libusb version
@@ -109,10 +110,13 @@ elseif(WIN32 OR(EXISTS "/etc/debian_version" AND MINGW)) # Windows or MinGW-tool
             )
         endif()
 
+=======
+    if (WIN32 AND NOT EXISTS "/etc/debian_version") # Skip this for Debian...
+>>>>>>> Stashed changes
         # Find path to libusb library
         FIND_PATH(
             LIBUSB_INCLUDE_DIR NAMES libusb.h
-            HINTS ${LIBUSB_WIN_OUTPUT_FOLDER}/include
+            HINTS ${LIBUSB_PATH}/include
             PATH_SUFFIXES libusb-1.0
             NO_DEFAULT_PATH
             NO_CMAKE_FIND_ROOT_PATH
@@ -122,7 +126,7 @@ elseif(WIN32 OR(EXISTS "/etc/debian_version" AND MINGW)) # Windows or MinGW-tool
             set(LIBUSB_NAME usb-1.0)
             find_library(
                 LIBUSB_LIBRARY NAMES ${LIBUSB_NAME}
-                HINTS ${LIBUSB_WIN_OUTPUT_FOLDER}/MinGW${ARCH}/static
+                HINTS ${LIBUSB_PATH}/MinGW${ARCH}/static
                 NO_DEFAULT_PATH
                 NO_CMAKE_FIND_ROOT_PATH
             )
@@ -131,7 +135,7 @@ elseif(WIN32 OR(EXISTS "/etc/debian_version" AND MINGW)) # Windows or MinGW-tool
             set(LIBUSB_NAME libusb-1.0.lib)
             find_library(
                 LIBUSB_LIBRARY NAMES ${LIBUSB_NAME}
-                HINTS ${LIBUSB_WIN_OUTPUT_FOLDER}/VS2019/MS${ARCH}/Release/dll
+                HINTS ${LIBUSB_PATH}/VS2019/MS${ARCH}/Release/dll
                 NO_DEFAULT_PATH
                 NO_CMAKE_FIND_ROOT_PATH
             )
